@@ -21,8 +21,10 @@ function Main() {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/getMembers');
-        const updatedMembers = await Promise.all(response.data.map(async (member) => {
+        const response1 = await axios.get('https://rickandmortyapi.com/api/character')
+        const response = response1.data.results
+        console.log(response)
+        const updatedMembers = await Promise.all(response.map(async (member) => {
           const firstEpisodeUrl = member.episode[0]
           if (!firstEpisodeUrl) {
             return {...member, firstEpisode: "Unknown"}
@@ -44,7 +46,7 @@ function Main() {
         console.error('Error fetching members:', error);
       }
     };
-
+  
     fetchMembers()
   }, [])
   
